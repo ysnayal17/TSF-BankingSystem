@@ -1,0 +1,65 @@
+<%- include("partials/header") %>
+	<section class="events" id="events-section">
+		<div class="content-wrapper">
+			<div class="inner-container container-fluid">
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="section-heading">
+							<div class="filter-categories">
+								<ul class="project-filter">
+									<li class="filter" data-filter="all"><span>Customer List</span></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-10 col-sm-12 col-md-offset-1">
+						<div class="projects-holder">
+							<div class="event-list">
+								<ul>
+									<% for(let i=0; i<users.length; i++){ %>
+										<li class="project-item first-child design">
+											<ul class="event-item design">
+												<li>
+													<div class="date">
+														<span>
+															<%= Math.floor((Math.random() * 20) + i) %><br>May
+														</span>
+													</div>
+												</li>
+												<li>
+													<h4>
+														<%= users[i].name %>
+													</h4>
+													<div class="web">
+														<span>
+															<%= users[i].email%>
+														</span>
+													</div>
+												</li>
+												<li>
+													<div class="time">
+														<span>
+															<%= users[i].credits%><br>Credits
+														</span>
+													</div>
+												</li>
+												<li>
+													<div class="white-button">
+														<a href="/view/<%= users[i]._id %>">Transfer</a>
+													</div>
+												</li>
+											</ul>
+										</li>
+
+										<% } %>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<%- include("partials/footer") %>
