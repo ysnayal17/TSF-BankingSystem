@@ -50,29 +50,31 @@ app.get("/view/:id1/:id2", async (req, res) => {
 
 app.put("/view/:id1/:id2", async (req, res) => {
     const { id1, id2 } = req.params;
-    const credit = parseInt(req.body.credit);
-    const fromUser = await User.findById(id1);
-    const toUser = await User.findById(id2);
+    if (id1.match(/^[0-9a-fA-F]{24}$/) && id2.match(/^[0-9a-fA-F]{24}$/)) {
+        const credit = parseInt(req.body.credit);
+        const fromUser = await User.findById(id1);
+        const toUser = await User.findById(id2);
 
-    if (credit <= fromUser.credits && credit > 0) {
+        if (credit <= fromUser.credits && credit > 0) {
 
-        let fromCreditsNew = fromUser.credits - credit;
-        let toCreditsNew = parseInt(toUser.credits + credit);
-        await User.findByIdAndUpdate(id1, { credits: fromCreditsNew },
-            { runValidators: true, new: true });
-        await User.findByIdAndUpdate(id2, { credits: toCreditsNew },
-            { runValidators: true, new: true });
+            let fromCreditsNew = fromUser.credits - credit;
+            let toCreditsNew = parseInt(toUser.credits + credit);
+            await User.findByIdAndUpdate(id1, { credits: fromCreditsNew },
+                { runValidators: true, new: true });
+            await User.findByIdAndUpdate(id2, { credits: toCreditsNew },
+                { runValidators: true, new: true });
 
-        let newTransaction = new Transaction();
-        newTransaction.fromName = fromUser.name;
-        newTransaction.toName = toUser.name;
-        newTransaction.transfer = credit;
-        await newTransaction.save();
+            let newTransaction = new Transaction();
+            newTransaction.fromName = fromUser.name;
+            newTransaction.toName = toUser.name;
+            newTransaction.transfer = credit;
+            await newTransaction.save();
 
-        res.redirect("/view");
-    }
-    else {
-        res.render('error');
+            res.redirect("/view");
+        }
+        else {
+            res.render('error');
+        }
     }
 });
 
