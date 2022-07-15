@@ -40,12 +40,10 @@ app.get('/view/:id', async (req, res) => {
 });
 
 app.get("/view/:id1/:id2", async (req, res) => {
-    if (id.match(/^[0-9a-fA-F]{24}$/)) {
-        const { id1, id2 } = req.params;
-        const fromUser = await User.findById(id1);
-        const toUser = await User.findById(id2);
-        res.render("form", { fromUser, toUser });
-    }
+    const { id1, id2 } = req.params;
+    const fromUser = await User.findById(id1);
+    const toUser = await User.findById(id2);
+    res.render("form", { fromUser, toUser });
 });
 
 app.put("/view/:id1/:id2", async (req, res) => {
