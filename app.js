@@ -9,7 +9,7 @@ const User = require('./models/user');
 const Transaction = require('./models/transaction');
 
 // mongoose.connect('mongodb://localhost:27017/TSF', {
-mongoose.connect('mongodb+srv://ysnayal17:yogesh17032002@cluster0.lqvtk5d.mongodb.net/TSF', {
+mongoose.connect('mongodb+srv://ysnayal17:<your atlas password>@cluster0.lqvtk5d.mongodb.net/TSF', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
